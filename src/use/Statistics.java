@@ -79,7 +79,8 @@ public class Statistics {
 	}
 	//统计
 	private void count(Integer[] source) {
-        Integer index = 0;//所有输入索引
+		System.out.println("source.length = " + source.length);
+		Integer index = 0;//所有输入索引
 		int current = 0;//当前问题索引
 		while (index != source.length) {
             System.out.println("current = " + current);
