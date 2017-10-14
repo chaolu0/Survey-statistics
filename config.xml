@@ -1,4 +1,4 @@
 <settings>
-    <xmlpath>e:\\temp\\x.xml</xmlpath>
-    <outpath>e:\\temp\\s.txt</outpath>
+    <xmlpath>example\\x.xml</xmlpath>
+    <outpath>example\\s.txt</outpath>
 </settings>

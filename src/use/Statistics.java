@@ -28,12 +28,12 @@ public class Statistics {
 	private int qCount = 0;
 
 
-	public void begin(Integer[] sourse) throws IOException {
+	public void begin(Integer[] source) throws IOException {
 		System.out.println("begin task");
 		parserSetting();
 		questions = parser();
 		qCount = questions.size();
-		count(sourse);
+		count(source);
 		writeFile();
 		System.out.println("task successed");
 	}
@@ -78,48 +78,56 @@ public class Statistics {
 		System.out.println("write file successed");
 	}
 	//统计
-	private void count(Integer[] sourse) {
-		int index = 0;//所有输入索引
+	private void count(Integer[] source) {
+        Integer index = 0;//所有输入索引
 		int current = 0;//当前问题索引
-		while (index != sourse.length) {
+		while (index != source.length) {
+            System.out.println("current = " + current);
+            System.out.println("index = " + index);
+            System.out.println("sourse = " + source[index]);
+
+            System.out.println("temp = " + (source[index] -1));
+
 			// has a answer -> do
-			if (sourse[index] != 0) {
+			if (source[index] != 0) {
 				// sample
 				if (!questions.get(current).getIsMutil()) {
-					sample(sourse, index, current);
+					sample(source, index, current);
+                    index++;
 				} else {
-					mutil(sourse, index, current);
+                    index = mutil(source, index, current);
 				}
 				current++;
 			}
 			// no answer -> pass
 			else {
-
+                current++;
+                index++;
 			}
 			if (current == qCount) {
-				current = 0;
+                System.out.println("下一张问卷");
+                current = 0;
 			}
 
-			index++;
+
 		}
 	}
 	//多选题处理
-	private void mutil(Integer[] sourse, int index, int current) {
+	private int mutil(Integer[] source, Integer index, int current) {
 		for (int i = index;; i++) {
-			if (sourse[i] == 0) {
+			if (source[i] == 0) {
 				index++;
-				return;
+				return index;
 			} else {
-				questions.get(current).getArr()[sourse[index] - 1]++;
+				questions.get(current).getArr()[source[index] - 1]++;
 				index++;
 			}
 		}
-
 	}
 	//单选题处理
-	private void sample(Integer[] sourse, int index, int current) {
-		questions.get(current).getArr()[sourse[index] - 1]++;
-		index++;
+	private void sample(Integer[] source, int index, int current) {
+        int temp = source[index] -1;
+        questions.get(current).getArr()[temp]++;
 	}
 	//问卷解析
 	private List<Question> parser() {
